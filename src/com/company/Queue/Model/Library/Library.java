@@ -17,6 +17,7 @@ public final class Library {
 
     /**
      * populates/add a particular book to the library shelf.
+     *
      * @param book- the book to be added to the library shelf.
      * @return String: if a book is successfully added to the shelf
      * and its present quantity
@@ -42,6 +43,7 @@ public final class Library {
 
     /**
      * gets a particular book from the library shelf.
+     *
      * @param person-   the person book is to be given to.
      * @param bookName- the name of book to be given out.
      * @return String: if a book is successfully given, decrease its
@@ -54,11 +56,11 @@ public final class Library {
         //if book isn't available, return not found.
         if (shelf.containsKey(bookName)) {
             shelf.put(bookName, shelf.get(bookName) - 1);
-            if(shelf.get(bookName)<0){
-                System.out.print("\n"+bookName+" taken");
-                return bookName+" taken";
+            if (shelf.get(bookName) < 0) {
+                System.out.print("\n" + bookName + " taken");
+                return bookName + " taken";
             }
-            if(person.getName().isEmpty()||bookName.isEmpty()){
+            if (person.getName().isEmpty() || bookName.isEmpty()) {
                 throw new Exception("unknown person/empty name or book name. provide name/book name");
             }
             new Thread() {
@@ -80,6 +82,7 @@ public final class Library {
 
     /**
      * checks quantity of a particular book remaining on the shelf.
+     *
      * @param bookName- the name of book to lookup on the shelf.
      * @return Integer: quantity of that book remaining on shelf.
      */
@@ -89,6 +92,7 @@ public final class Library {
 
     /**
      * Gets singleton librarian instance
+     *
      * @return librarian instance
      */
     public static final Librarian getLibrarian() {
@@ -97,6 +101,7 @@ public final class Library {
 
     /**
      * Gets singleton shelf instance
+     *
      * @return the shelf books are kept in.
      */
     public static final HashMap<String, Integer> getShelf() {
@@ -105,6 +110,7 @@ public final class Library {
 
     /**
      * Gets singleton prioritised queue of users.
+     *
      * @return prioritised queue of users.
      */
     public static final Queue<Person> getPersonQueue() {

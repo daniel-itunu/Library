@@ -4,7 +4,7 @@ import com.company.Queue.Model.Library.Librarian;
 import com.company.Queue.Model.Library.Library;
 
 public abstract class Person {
-    private String name;
+    protected String name;
 
     public Person(String name) {
         this.name = name;
@@ -19,10 +19,10 @@ public abstract class Person {
     }
 
     public boolean requestBook(Person person, String bookName) throws Exception {
-        if(!Library.getLibrarian().getShelf().containsKey(bookName)){
-            throw new Exception(bookName+" isn't available on shelf");
+        if (!Library.getLibrarian().getShelf().containsKey(bookName)) {
+            throw new Exception(bookName + " isn't available on shelf");
         }
-        if(!person.getName().isEmpty()&&!bookName.isEmpty()){
+        if (!person.getName().isEmpty() && !bookName.isEmpty()) {
             return Librarian.acceptRequest(person, bookName);
         }
         throw new Exception("<Person> name or <bookName> is empty");

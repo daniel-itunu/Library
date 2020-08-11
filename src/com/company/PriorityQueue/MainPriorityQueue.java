@@ -11,22 +11,22 @@ import com.company.PriorityQueue.Model.Person.Teacher;
 public class MainPriorityQueue {
 
     public static void main(String[] args) throws Exception {
-        //liberian adds/populate books to shelf in the library
+        //call liberian to adds/populate books to shelf in the library
         Librarian librarian = Library.getLibrarian();
 
-        //librarian add 3 books
-        librarian.addABookToShelf(new Book("8085 Architecture",1 ));
-        librarian.addABookToShelf(new Book("Electronic circuit",30));
-        librarian.addABookToShelf(new Book("Digital signal processing",5));
+        //librarian add 3 types of books in varying quantities to shelf
+        librarian.addABookToShelf(new Book("8085 Architecture", 1));
+        librarian.addABookToShelf(new Book("Electronic circuit", 30));
+        librarian.addABookToShelf(new Book("Digital signal processing", 5));
         System.out.println("\n");
 
         //check the quantities of books added above to shelf
-        System.out.println(librarian.checkABookQuantityOnShelf("8085 Architecture"));//10
-        System.out.println(librarian.checkABookQuantityOnShelf("Electronic circuit"));//30
-        System.out.println(librarian.checkABookQuantityOnShelf("Digital signal processing"));//5
+        System.out.println(librarian.checkABookQuantityOnShelf("8085 Architecture"));
+        System.out.println(librarian.checkABookQuantityOnShelf("Electronic circuit"));
+        System.out.println(librarian.checkABookQuantityOnShelf("Digital signal processing"));
         System.out.println("\n");
 
-        //person objects who want to make request
+        //person objects who want to make book request
         Person junior = new JuniorStudent("junior");
         Person senior = new SeniorStudent("senior");
         Person teacher = new Teacher("teacher");
@@ -34,15 +34,15 @@ public class MainPriorityQueue {
         Person paul = new SeniorStudent("paul-senior");
         Person thomas = new Teacher("thomas-teacher");
 
-        //person objects make their requests
-        junior.requestBook(junior,"8085 Architecture");
-        senior.requestBook(senior,"8085 Architecture");
-        teacher.requestBook(teacher,"8085 Architecture");
-        john.requestBook(john,"Electronic circuit");
-        paul.requestBook(paul,"Electronic circuit");
-        thomas.requestBook(thomas,"Digital signal processing");
+        //person objects make their book requests
+        junior.requestBook(junior, "8085 Architecture");
+        senior.requestBook(senior, "8085 Architecture");
+        teacher.requestBook(teacher, "8085 Architecture");
+        john.requestBook(john, "Electronic circuit");
+        paul.requestBook(paul, "Electronic circuit");
+        thomas.requestBook(thomas, "Digital signal processing");
 
-        //librarian accepts requests
+        //librarian accepts book requests
         System.out.print("Accepting requests");
         librarian.acceptRequest(junior, "8085 Architecture");
         librarian.acceptRequest(senior, "8085 Architecture");
@@ -51,7 +51,7 @@ public class MainPriorityQueue {
         librarian.acceptRequest(paul, "Electronic circuit");
         librarian.acceptRequest(thomas, "Digital signal processing");
 
-        //librarian processes the requests made
+        //librarian processes the book requests made
         librarian.processRequests();
     }
 }

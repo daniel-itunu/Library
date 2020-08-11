@@ -3,8 +3,8 @@ package com.company.PriorityQueue.Model.Person;
 import com.company.PriorityQueue.Model.Library.Librarian;
 
 public abstract class Person {
-    private String name;
-    private Integer PRIORITY;
+    protected String name;
+    protected Integer PRIORITY;
 
     public Person(String name, Integer PRIORITY) {
         this.name = name;
