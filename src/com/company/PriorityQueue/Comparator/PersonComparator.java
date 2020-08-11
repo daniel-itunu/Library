@@ -12,9 +12,9 @@ public class PersonComparator implements Comparator<Person> {
 
     @Override
     public int compare(Person p1, Person p2) {
-        if( p1.getPRIORITY() < p2.getPRIORITY()){
+        if (p1.getPRIORITY() < p2.getPRIORITY()) {
             return 1;
-        } else if(p1.getPRIORITY() > p2.getPRIORITY()){
+        } else if (p1.getPRIORITY() > p2.getPRIORITY()) {
             return -1;
         }
         return 0;

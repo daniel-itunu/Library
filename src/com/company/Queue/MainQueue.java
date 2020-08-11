@@ -13,10 +13,10 @@ public class MainQueue {
         //liberian adds/populate books to shelf in the library
         Librarian librarian = Library.getLibrarian();
 
-        //librarian add 3 books
-        librarian.addABookToShelf(new Book("8085 Architecture",10 ));
-        librarian.addABookToShelf(new Book("Electronic circuit",30));
-        librarian.addABookToShelf(new Book("Digital signal processing",5));
+        //librarian add 3 books to shelf
+        librarian.addBookToShelf(new Book("8085 Architecture",1 ));
+        librarian.addBookToShelf(new Book("Electronic circuit",30));
+        librarian.addBookToShelf(new Book("Digital signal processing",5));
         System.out.print("\n");
 
         //check the quantities of books added above to shelf
@@ -35,18 +35,18 @@ public class MainQueue {
 
         //person objects make their requests
         junior.requestBook(junior,"8085 Architecture");
-        senior.requestBook(senior,"Electronic circuit");
-        teacher.requestBook(teacher,"Digital signal processing");
-        john.requestBook(john,"8085 Architecture");
+        senior.requestBook(senior,"8085 Architecture");
+        teacher.requestBook(teacher,"8085 Architecture");
+        john.requestBook(john,"Electronic circuit");
         paul.requestBook(paul,"Electronic circuit");
         thomas.requestBook(thomas,"Digital signal processing");
 
         //librarian accepts requests
         System.out.print("ACCEPTING REQUESTS");
         librarian.acceptRequest(junior, "8085 Architecture");
-        librarian.acceptRequest(senior, "Electronic circuit");
-        librarian.acceptRequest(teacher, "Digital signal processing");
-        librarian.acceptRequest(john, "8085 Architecture");
+        librarian.acceptRequest(senior, "8085 Architecture");
+        librarian.acceptRequest(teacher, "8085 Architecture");
+        librarian.acceptRequest(john, "Electronic circuit");
         librarian.acceptRequest(paul, "Electronic circuit");
         librarian.acceptRequest(thomas, "Digital signal processing");
 

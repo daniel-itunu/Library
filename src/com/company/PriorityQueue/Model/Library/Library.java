@@ -2,7 +2,6 @@ package com.company.PriorityQueue.Model.Library;
 
 import com.company.PriorityQueue.Comparator.PersonComparator;
 import com.company.PriorityQueue.Model.Person.Person;
-
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -10,19 +9,17 @@ import java.util.PriorityQueue;
  * class library models a typical library
  */
 public final class Library {
-    //a typical library has a librarian, book shelf and queue of book borrowers.
     private static final Librarian librarian = new Librarian();
     private static final HashMap<String, Integer> shelf = new HashMap();
     private static final PriorityQueue<Person> personPriorityQueue = new PriorityQueue<>(new PersonComparator());
 
     /**
      * populates/add a particular book to the library shelf.
-     *
      * @param book- the book to be added to the library shelf.
-     * @return String: if a book is successfully added to the shelf
-     * and its present quantity
+     * @return true if a book is successfully added to the shelf and its present quantity.
+     * @throws Exception if fail to add book to shelf.
      */
-    static final boolean addABookToShelf(Book book) throws Exception {
+    static final boolean addBookToShelf(Book book) throws Exception {
         //if shelf does not contain present book to be added
         //go ahead and add the book to shelf.
         //if book is already present on shelf, increase its quantity.
@@ -43,48 +40,53 @@ public final class Library {
 
     /**
      * gets a particular book from the library shelf.
-     *
      * @param person-   the person book is to be given to.
      * @param bookName- the name of book to be given out.
-     * @return String: if a book is successfully given,
-     * decrease its quantity by 1 and not found if book doesn't exist on the shelf.
+     * @throws Exception if empty name or empty book name is being passed into request.
+     * @return String: if a book is successfully given, decrease its
+     * quantity by 1 and not found if book doesn't exist on the shelf.
      */
-    static final boolean getABookFromShelf(Person person, String bookName) throws Exception {
+    static final String getABookFromShelf(Person person, String bookName) throws Exception {
         //if shelf contains the book wanted, go ahead,
         //get book and deduct 1 from its quantity
         //if book isn't available, return not found.
         if (shelf.containsKey(bookName)) {
             shelf.put(bookName, shelf.get(bookName) - 1);
+            if(shelf.get(bookName)<0){
+                System.out.println("\n"+bookName+" taken");
+                return "\n"+bookName+" taken";
+            }
+            if(person.getName().isEmpty()||bookName.isEmpty()){
+                throw new Exception("unknown person/empty name or book name. provide name/book name");
+            }
             new Thread() {
                 @Override
                 public void run() {
                     System.out.print("\nPROCESSED REQUEST: Book->" + bookName + " given to " + person.getName() + ". " +
                             "Quantity of " + bookName + " left on shelf is " + shelf.get(bookName));
                     try {
-                        sleep(500);
+                        sleep(600);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }.run();
-            return true;
+            return "successfully taken";
         }
-        throw new Exception("book " + bookName + " not found");
+        throw new Exception("book " + bookName + " not found/incorrect name/empty request name");
     }
 
     /**
      * checks quantity of a particular book remaining on the shelf.
-     *
      * @param bookName- the name of book to lookup on the shelf.
      * @return Integer: quantity of that book remaining on shelf.
      */
-    static final Integer checkABookQuantityOnShelf(String bookName) {
+    static final Integer checkABookQuantityOnShelf(String bookName){
         return shelf.get(bookName);
     }
 
     /**
      * Gets singleton librarian instance
-     *
      * @return librarian instance
      */
     public static final Librarian getLibrarian() {
@@ -93,7 +95,6 @@ public final class Library {
 
     /**
      * Gets singleton shelf instance
-     *
      * @return the shelf books are kept in.
      */
     public static final HashMap<String, Integer> getShelf() {
@@ -102,7 +103,6 @@ public final class Library {
 
     /**
      * Gets singleton prioritised queue of users.
-     *
      * @return prioritised queue of users.
      */
     public static final PriorityQueue<Person> getPersonPriorityQueue() {

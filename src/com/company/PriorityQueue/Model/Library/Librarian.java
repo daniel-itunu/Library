@@ -1,7 +1,6 @@
 package com.company.PriorityQueue.Model.Library;
 
 import com.company.PriorityQueue.Model.Person.Person;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,18 +8,16 @@ import java.util.Map;
  * class Librarian model a librarian
  */
 public final class Librarian {
-    private static Map<Person, String> personRequestMap;
-
-    public Librarian() {
-        personRequestMap = new HashMap<>();
-    }
+    private static Map<Person, String> personRequestMap = new HashMap<>();
 
     /**
-     * adds a book to the shelf
+     * Adds a book to the shelf
+     * @param book the book to be addded to shelf.
      * @return true if a book is successfully added to shelf
+     * @throws Exception if book cannot be added for any reason
      */
     public static final boolean addABookToShelf(Book book) throws Exception {
-        if(Library.addABookToShelf(book) != true){
+        if(Library.addBookToShelf(book) == false){
             throw new Exception("failed to add "+book.getTitle()+"to shelf");
         }
         return true;
@@ -28,35 +25,29 @@ public final class Librarian {
 
     /**
      * Give out a book from shelf to requested users
+     * @param person the person to give book to.
+     * @param bookName the book name of book to give out.
      * @return String confirming details of person and book title given out
      */
-    public static final boolean giveABookOut(Person person, String bookName) throws Exception {
-        if( Library.getABookFromShelf(person, bookName) != true){
-            throw new Exception("failed to give "+bookName+"out");
-        }
-        return true;
+    public static String giveABookOut(Person person, String bookName) throws Exception {
+       return Library.getABookFromShelf(person, bookName);
     }
 
     /**
-     * checks quqntity of a particular book left on the shelf
-     * @return Integer quanity of the book
+     * checks quantity of a particular book left on the shelf.
+     * @param bookName the name of book to check its quantity.
+     * @return String the quantity of the book on the shelf.
      */
-    public final String checkABookQuantityOnShelf(String bookName) {
-        return "Quantity of "+bookName+" is on the shelf "+Library.checkABookQuantityOnShelf(bookName);
+    public final String checkABookQuantityOnShelf(String bookName){
+        return "Quantity of "+bookName+" on the shelf is "+Library.checkABookQuantityOnShelf(bookName);
     }
 
     /**
-     * Gets shelf instance from library class.
-     * @return shelf instance.
-     */
-    public final Map<String, Integer> getShelf(){
-        return Library.getShelf();
-    }
-
-    /**
-     * Accepts book request of users, maps
-     * each user to their book request name.
-     * @return true if request succeffuly accepted.
+     * Accepts book request of users, maps each user to their book request name.
+     * @param person the person to accept request from.
+     * @param want the need/book name of person requesting.
+     * @return true if request successfully accepted.
+     * @throws Exception if request cannot be accepted for whatever reasons.
      */
     public static final boolean acceptRequest(Person person, String want) throws Exception {
         if( Library.getPersonPriorityQueue().add(person) != true){
@@ -68,7 +59,7 @@ public final class Librarian {
             public void run() {
                 System.out.print(".....");
                 try {
-                    super.sleep(400);
+                    super.sleep(600);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -79,15 +70,34 @@ public final class Librarian {
 
     /**
      * process all requests accepted while queue isn't empty.
-     * @return true if request processed.
+     * @throws Exception if requests cannot be processed.
      */
-    public final boolean processRequests() throws Exception {
-        while (!Library.getPersonPriorityQueue().isEmpty()){
-            if(giveABookOut(Library.getPersonPriorityQueue().remove(),
-                    personRequestMap.get(Library.getPersonPriorityQueue().remove())) != true){
-                throw new Exception("failed to process requests");
+    public final void processRequests() throws Exception {
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    System.out.print("\nProcessing requests..................");
+                    super.sleep(600);
+                    System.out.print(".........................................");
+                    super.sleep(600);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        }.run();
+        while (!Library.getPersonPriorityQueue().isEmpty()) {
+            giveABookOut(Library.getPersonPriorityQueue().remove(),
+                personRequestMap.get(Library.getPersonPriorityQueue().remove()));
         }
-        return true;
     }
+
+    /**
+     * Gets shelf instance from library class.
+     * @return shelf instance.
+     */
+    public final Map<String, Integer> getShelf(){
+        return Library.getShelf();
+    }
+
 }
