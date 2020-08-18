@@ -92,10 +92,17 @@ public final class Librarian {
                 }
             }
         }.run();
-        while (!Library.getPersonPriorityQueue().isEmpty()) {
-            giveABookOut(Library.getPersonPriorityQueue().remove(),
-                    personRequestMap.get(Library.getPersonPriorityQueue().remove()));
-        }
+//        while (!Library.getPersonPriorityQueue().isEmpty()) {
+//            giveABookOut(Library.getPersonPriorityQueue().remove(),
+//                    personRequestMap.get(Library.getPersonPriorityQueue().remove()));
+//        }
+        Library.getPersonPriorityQueue().stream().forEach(person -> {
+            try {
+                giveABookOut(person, personRequestMap.get(person));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
