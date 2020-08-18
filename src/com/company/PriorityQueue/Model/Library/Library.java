@@ -3,6 +3,7 @@ package com.company.PriorityQueue.Model.Library;
 import com.company.PriorityQueue.Comparator.PersonComparator;
 import com.company.PriorityQueue.Model.Person.Person;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -12,7 +13,7 @@ import java.util.PriorityQueue;
 public final class Library {
     protected static final Librarian librarian = new Librarian();
     protected static final HashMap<String, Integer> shelf = new HashMap();
-    protected static final PriorityQueue<Person> personPriorityQueue = new PriorityQueue<>(new PersonComparator());
+    protected static final PriorityQueue<Person> personPriorityQueue = new PriorityQueue<>(Comparator.comparing(Person::getPRIORITY));
 
     /**
      * populates/add a particular book to the library shelf.
