@@ -27,7 +27,6 @@ public final class Librarian {
 
     /**
      * Give out a book from shelf to requested users
-     *
      * @param person   the person to give book to.
      * @param bookName the book name of book to give out.
      * @return String confirming details of person and book title given out
@@ -38,7 +37,6 @@ public final class Librarian {
 
     /**
      * Accepts book request of users, maps each user to their book request name.
-     *
      * @param person the person to accept request from.
      * @param want   the need/book name of person requesting.
      * @return true if request successfully accepted.
@@ -65,7 +63,6 @@ public final class Librarian {
 
     /**
      * checks quantity of a particular book left on the shelf.
-     *
      * @param bookName the name of book to check its quantity.
      * @return String the quantity of the book on the shelf.
      */
@@ -75,7 +72,6 @@ public final class Librarian {
 
     /**
      * process all requests accepted while queue isn't empty.
-     *
      * @throws Exception if requests cannot be processed.
      */
     public final void processRequests() throws Exception {
@@ -96,6 +92,7 @@ public final class Librarian {
 //            giveABookOut(Library.getPersonPriorityQueue().remove(),
 //                    personRequestMap.get(Library.getPersonPriorityQueue().remove()));
 //        }
+        //process priority queue request with stream
         Library.getPersonPriorityQueue().stream().forEach(person -> {
             try {
                 giveABookOut(person, personRequestMap.get(person));
@@ -107,7 +104,6 @@ public final class Librarian {
 
     /**
      * Gets shelf instance from library class.
-     *
      * @return shelf instance.
      */
     public final Map<String, Integer> getShelf() {
